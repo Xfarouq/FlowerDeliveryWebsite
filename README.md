@@ -77,7 +77,7 @@ Server runs at: http://localhost:4000
 | PATCH  | `/api/flowers/:id` | Update flower                                    |
 | DELETE | `/api/flowers/:id` | Delete flower                                    |
 
-
+```
 📤 Uploading Images (with Postman)
 Method: POST
 
@@ -93,27 +93,12 @@ description → Flower description (text)
 
 image → Choose a file (type: file)
 
-📸 Access Uploaded Images
-Uploaded files are stored in /uploads/ and can be accessed like:
 
-```bash
-
-http://localhost:4000/uploads/yourfilename.jpg
-📌 Milestone 1 Status: ✅ Completed
- Backend server with Express
-
- MongoDB connected
-
- Flower CRUD operations
-
- Image upload via Multer
-
- Tested with Postman
 
 👩‍💻 Author
 Name: Farouq
 
-Project: ElevateHER Flower Delivery Backend
+Project: Flower Delivery Website
 
 📄 License
 This project is open-source and available under the MIT License.
