@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// Creating the Schema
 const flowerSchema = new Schema(
   {
     name: { type: String, required: true },
@@ -14,3 +15,5 @@ const flowerSchema = new Schema(
 
 const Flower = mongoose.model("Flower", flowerSchema);
 module.exports = Flower;
+
+
