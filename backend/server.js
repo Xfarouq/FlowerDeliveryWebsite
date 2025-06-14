@@ -1,27 +1,35 @@
-// Import .env file
-require('dotenv').config()
+// Load environment variables
+require('dotenv').config();
 
-const express = require('express')
-const mongoose = require('mongoose')
+// Import dependencies
+const express = require('express');
+const mongoose = require('mongoose');
+const flowerRoutes = require('./routes/flowerRoutes');
+const userRoutes = require('./routes/userRoutes');
 
-const app = express()
+// Initialize express app
+const app = express();
 
-// Middleware
-app.use(express.json()) // Parse JSON
+// Middleware to parse JSON
+app.use(express.json());
+
+// Optional: Log each incoming request
 app.use((req, res, next) => {
-  console.log(req.path, req.method)
-  next()
-})
+  console.log(`${req.method} ${req.path}`);
+  next();
+});
 
 // Routes
-const flowerRoutes = require('./routes/flowerRoutes')
-app.use('/api/flowers', flowerRoutes)
+app.use('/api/flowers', flowerRoutes); // Flower endpoints
+app.use('/api/users', userRoutes);     // User authentication endpoints
 
-// Connect to MongoDB
+// Connect to MongoDB and start server
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     app.listen(process.env.PORT, () => {
-      console.log('Connected to Database and Server is running on port', process.env.PORT)
-    })
+      console.log(`✅ Connected to DB & listening on port ${process.env.PORT}`);
+    });
   })
-  .catch((error) => console.log(error))
+  .catch((error) => {
+    console.error('❌ Failed to connect to MongoDB:', error.message);
+  });
