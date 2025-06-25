@@ -1,19 +1,22 @@
-// Load environment variables
 require('dotenv').config();
 
-// Import dependencies
+
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path'); // ⬅️ Add this
 const flowerRoutes = require('./routes/flowerRoutes');
 const userRoutes = require('./routes/userRoutes');
 
-// Initialize express app
+
 const app = express();
 
-// Middleware to parse JSON
+
 app.use(express.json());
 
-// Optional: Log each incoming request
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); 
+
+
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.path}`);
   next();
