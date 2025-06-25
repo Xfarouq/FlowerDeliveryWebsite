@@ -3,14 +3,15 @@ import axios from 'axios';
 
 export default function Flowers() {
   const [flowers, setFlowers] = useState([]);
+  const API_URL = 'https://flowerdeliverywebsite-backend.onrender.com'; // Base URL for backend
 
   const fetchFlowers = async () => {
-    const res = await axios.get('/api/flowers'); 
+    const res = await axios.get(`${API_URL}/api/flowers`);
     setFlowers(res.data);
   };
 
   const deleteFlower = async (id) => {
-    await axios.delete(`/api/flowers/${id}`); 
+    await axios.delete(`${API_URL}/api/flowers/${id}`);
     fetchFlowers();
   };
 
@@ -22,7 +23,11 @@ export default function Flowers() {
     <div className="flower-list">
       {flowers.map((flower) => (
         <div className="flower-card" key={flower._id}>
-          <img src={`/${flower.image}`} alt={flower.name} />
+          <img
+            src={`${API_URL}/${flower.image}`}
+            alt={flower.name}
+            style={{ width: '150px', height: '150px', objectFit: 'cover' }}
+          />
           <div className="flower-details">
             <p><strong>Name:</strong> {flower.name}</p>
             <p><strong>Category:</strong> {flower.category}</p>
