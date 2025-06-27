@@ -3,15 +3,24 @@ import axios from 'axios';
 
 export default function Flowers() {
   const [flowers, setFlowers] = useState([]);
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const fetchFlowers = async () => {
-    const res = await axios.get('/api/flowers'); 
-    setFlowers(res.data);
+    try {
+      const res = await axios.get(`${API_URL}/api/flowers`);
+      setFlowers(res.data);
+    } catch (error) {
+      console.error("Error fetching flowers:", error);
+    }
   };
 
   const deleteFlower = async (id) => {
-    await axios.delete(`/api/flowers/${id}`); 
-    fetchFlowers();
+    try {
+      await axios.delete(`${API_URL}/api/flowers/${id}`);
+      fetchFlowers();
+    } catch (error) {
+      console.error("Error deleting flower:", error);
+    }
   };
 
   useEffect(() => {
@@ -22,7 +31,11 @@ export default function Flowers() {
     <div className="flower-list">
       {flowers.map((flower) => (
         <div className="flower-card" key={flower._id}>
-          <img src={`/${flower.image}`} alt={flower.name} />
+          <img
+            src={`${API_URL}/${flower.image.replace(/\\/g, '/')}`}
+            alt={flower.name}
+            style={{ width: '150px', height: '150px', objectFit: 'cover' }}
+          />
           <div className="flower-details">
             <p><strong>Name:</strong> {flower.name}</p>
             <p><strong>Category:</strong> {flower.category}</p>

@@ -9,8 +9,10 @@ export default function AddFlower() {
     description: '',
     price: '',
     category: '',
-    image: null
+    image: null,
   });
+
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -23,13 +25,26 @@ export default function AddFlower() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const data = new FormData();
     for (let key in formData) {
       data.append(key, formData[key]);
     }
-    await axios.post('/api/flowers', data);
-    toast.success('Flower added successfully!');
-    setFormData({ name: '', description: '', price: '', category: '', image: null });
+
+    try {
+      await axios.post(`${API_URL}/api/flowers`, data);
+      toast.success('🌸 Flower added successfully!');
+      setFormData({
+        name: '',
+        description: '',
+        price: '',
+        category: '',
+        image: null,
+      });
+    } catch (error) {
+      toast.error('❌ Failed to add flower');
+      console.error(error);
+    }
   };
 
   return (
