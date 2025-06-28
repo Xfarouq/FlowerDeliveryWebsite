@@ -3,16 +3,24 @@ import axios from 'axios';
 
 export default function Flowers() {
   const [flowers, setFlowers] = useState([]);
-  const API_URL = 'https://flowerdeliverywebsite-backend.onrender.com';
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const fetchFlowers = async () => {
-    const res = await axios.get(`${API_URL}/api/flowers`);
-    setFlowers(res.data);
+    try {
+      const res = await axios.get(`${API_URL}/api/flowers`);
+      setFlowers(res.data);
+    } catch (err) {
+      console.error('Error fetching flowers:', err);
+    }
   };
 
   const deleteFlower = async (id) => {
-    await axios.delete(`${API_URL}/api/flowers/${id}`);
-    fetchFlowers();
+    try {
+      await axios.delete(`${API_URL}/api/flowers/${id}`);
+      fetchFlowers();
+    } catch (err) {
+      console.error('Error deleting flower:', err);
+    }
   };
 
   useEffect(() => {
