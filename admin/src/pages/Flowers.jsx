@@ -2,20 +2,14 @@ import React, { useEffect, useState } from 'react';
 
 export default function Flowers() {
   const [flowers, setFlowers] = useState([]);
-  const API_URL = process.env.REACT_APP_API_URL;
+  const API_URL = 'https://flowerdeliverywebsite-backend.onrender.com';
 
   const fetchFlowers = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/flowers`);
-      console.log("Raw response:", response);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log("Parsed flower data:", data);
-
+      const res = await fetch(`${API_URL}/api/flowers`);
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      const data = await res.json();
+      console.log('Fetched flowers:', data); // ✅ Console log the fetched data
       setFlowers(data);
     } catch (err) {
       console.error('Error fetching flowers:', err);
@@ -24,16 +18,11 @@ export default function Flowers() {
 
   const deleteFlower = async (id) => {
     try {
-      const response = await fetch(`${API_URL}/api/flowers/${id}`, {
-        method: 'DELETE',
+      const res = await fetch(`${API_URL}/api/flowers/${id}`, {
+        method: 'DELETE'
       });
-
-      if (!response.ok) {
-        throw new Error(`Delete failed! status: ${response.status}`);
-      }
-
-      console.log(`Flower with ID ${id} deleted`);
-      fetchFlowers(); // Refresh list
+      if (!res.ok) throw new Error(`Failed to delete flower: ${res.status}`);
+      fetchFlowers(); // Refresh the list
     } catch (err) {
       console.error('Error deleting flower:', err);
     }

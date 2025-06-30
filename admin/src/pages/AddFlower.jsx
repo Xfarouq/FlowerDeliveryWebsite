@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -12,7 +11,7 @@ export default function AddFlower() {
     image: null,
   });
 
-  const API_URL = process.env.REACT_APP_API_URL;
+  const API_URL = 'https://flowerdeliverywebsite-backend.onrender.com'; // 
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -25,18 +24,33 @@ export default function AddFlower() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const data = new FormData();
     for (let key in formData) {
       data.append(key, formData[key]);
     }
 
     try {
-      await axios.post(`${API_URL}/api/flowers`, data);
+      const res = await fetch(`${API_URL}/api/flowers`, {
+        method: 'POST',
+        body: data,
+      });
+
+      if (!res.ok) {
+        throw new Error('Failed to add flower');
+      }
+
       toast.success('Flower added successfully!');
-      setFormData({ name: '', description: '', price: '', category: '', image: null });
+      setFormData({
+        name: '',
+        description: '',
+        price: '',
+        category: '',
+        image: null,
+      });
     } catch (error) {
+      console.error('Error adding flower:', error);
       toast.error('Failed to add flower.');
-      console.error(error);
     }
   };
 
