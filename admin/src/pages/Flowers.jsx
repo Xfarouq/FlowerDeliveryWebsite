@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 
 export default function Flowers() {
   const [flowers, setFlowers] = useState([]);
@@ -7,8 +6,17 @@ export default function Flowers() {
 
   const fetchFlowers = async () => {
     try {
-      const res = await axios.get(`${API_URL}/api/flowers`);
-      setFlowers(res.data);
+      const response = await fetch(`${API_URL}/api/flowers`);
+      console.log("Raw response:", response);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Parsed flower data:", data);
+
+      setFlowers(data);
     } catch (err) {
       console.error('Error fetching flowers:', err);
     }
@@ -16,8 +24,16 @@ export default function Flowers() {
 
   const deleteFlower = async (id) => {
     try {
-      await axios.delete(`${API_URL}/api/flowers/${id}`);
-      fetchFlowers();
+      const response = await fetch(`${API_URL}/api/flowers/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error(`Delete failed! status: ${response.status}`);
+      }
+
+      console.log(`Flower with ID ${id} deleted`);
+      fetchFlowers(); // Refresh list
     } catch (err) {
       console.error('Error deleting flower:', err);
     }
