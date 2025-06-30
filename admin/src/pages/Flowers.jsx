@@ -5,13 +5,22 @@ export default function Flowers() {
   const [flowers, setFlowers] = useState([]);
 
   const fetchFlowers = async () => {
-    const res = await axios.get('/api/flowers');
-    setFlowers(res.data);
+    try {
+      const res = await axios.get('/api/flowers');
+      console.log('Fetched flowers:', res.data); // ✅ Console log to inspect data
+      setFlowers(res.data);
+    } catch (err) {
+      console.error('Error fetching flowers:', err);
+    }
   };
 
   const deleteFlower = async (id) => {
-    await axios.delete(`/api/flowers/${id}`);
-    fetchFlowers();
+    try {
+      await axios.delete(`/api/flowers/${id}`);
+      fetchFlowers(); // Refresh the list
+    } catch (err) {
+      console.error('Error deleting flower:', err);
+    }
   };
 
   useEffect(() => {

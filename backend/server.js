@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
-const path = require('path'); // ⬅️ Add this
+const path = require('path'); // 
 const flowerRoutes = require('./routes/flowerRoutes');
 const userRoutes = require('./routes/userRoutes');
 
