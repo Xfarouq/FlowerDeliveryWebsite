@@ -1,28 +1,22 @@
 const Footer = () => {
   return (
     <section className="footer">
-      <div className="foot">
+      <div className="foot reminder">
         <p>
           Remember to offer beautiful flowers from Kyiv LuxeBouquets Valentines
           Day, Mothers Day, Christmas... Reminds you 7 days before. No spam or
-          sharing your address
+          sharing your address.
         </p>
-        <button>Your Email</button>
-        <button>REMIND</button>
+        <div className="reminder-input">
+          <input type="email" placeholder="Your Email" />
+          <button>REMIND</button>
+        </div>
       </div>
-      <div className="foot">
-        <p>
-          Remember to offer beautiful flowers from Kyiv LuxeBouquets Valentines
-          Day, Mothers Day, Christmas... Reminds you 7 days before. No spam or
-          sharing your address
-        </p>
-        <button>Your Email</button>
-        <button>REMIND</button>
-      </div>
-      <div className="foot">
+
+      <div className="foot contact">
         <h3>Contact Us</h3>
         <p>Address</p>
-        <h4>15/4 Khreshchatyk Street, Kyiv </h4>
+        <h4>15/4 Khreshchatyk Street, Kyiv</h4>
         <p>Phone</p>
         <h4>+380980099777</h4>
         <p>General Enquiry</p>
@@ -36,8 +30,9 @@ const Footer = () => {
           <img src="/images/Telegram.svg" alt="Telegram" />
         </div>
       </div>
-      <div className="foot">
-        <p>Shop</p>
+
+      <div className="foot shop">
+        <h3>Shop</h3>
         <p>All Products</p>
         <p>Fresh Flowers</p>
         <p>Dried Flowers</p>
@@ -45,16 +40,18 @@ const Footer = () => {
         <p>Designer Vases</p>
         <p>Aroma Candles</p>
         <p>Freshener Diffuser</p>
-        <p>Service</p>
-        <p>Flower Subcription</p>
+        <h4>Service</h4>
+        <p>Flower Subscription</p>
         <p>Wedding & Event Decor</p>
       </div>
-      <div className="foot">
-        <p>About Us</p>
+
+      <div className="foot about">
+        <h3>About Us</h3>
         <p>Our Story</p>
-        <p>Shiiping & Returns</p>
-        <p>Terms & conditions</p>
-        <p>Privacy policy</p>
+        <p>Blog</p>
+        <p>Shipping & Returns</p>
+        <p>Terms & Conditions</p>
+        <p>Privacy Policy</p>
       </div>
     </section>
   );

@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <section className="homepage">
+    <section className="home">
       <div className="hero">
         <div className="left">
           <div className="row1">
-            <div className="header-text">
-              <h1>Kyiv LuxeBouquets</h1>
-              <img src="/images/r.png" alt="R Icon" />
-            </div>
+            <h1>
+              Kyiv <br />
+              LuxeBouquets <img src="/images/r.png" alt="R Icon" />
+            </h1>
             <p>
               Discover Uniquely Crafted Bouquets and Gifts for Any Occasion:
               Spread Joy with Our Online Flower Delivery Service
@@ -27,36 +27,28 @@ const Home = () => {
           <div className="right-mid">
             <div className="box1">
               <h2>Fresh Flowers</h2>
-              <button>
-                <Link to="/">
-                  Shop now{" "}
-                  <img src="/images/arrow-right.png" alt="Arrow-Right" />
-                </Link>
-              </button>
+              <Link to="/">
+                Shop now <img src="/images/arrow-right.png" alt="Arrow-Right" />
+              </Link>
             </div>
             <div className="box2">
               <img src="/images/card item1.png" alt="Flower" />
             </div>
             <div className="box1">
               <h2>Live Plants</h2>
-              <button>
-                <Link to="/">
-                  Shop now{" "}
-                  <img src="/images/arrow-right.png" alt="Arrow-Right" />
-                </Link>
-              </button>
+              <Link to="/">
+                Shop now <img src="/images/arrow-right.png" alt="Arrow-Right" />
+              </Link>
             </div>
             <div className="box2">
               <img src="/images/card item3.png" alt="Flower" />
             </div>
-            <div className="box1">
+            <div className="box1 m">
               <h2>Fresheners</h2>
-              <button>
-                <Link to="/">
-                  Shop now{" "}
-                  <img src="/images/arrow-right.png" alt="Arrow-Right" />
-                </Link>
-              </button>
+
+              <Link to="/">
+                Shop now <img src="/images/arrow-right.png" alt="Arrow-Right" />
+              </Link>
             </div>
           </div>
           <div className="right-end">
@@ -65,24 +57,22 @@ const Home = () => {
             </div>
             <div className="box1">
               <h2>Dried Flowers</h2>
-              <button>
-                <Link to="/">
-                  <img src="/images/arrow-left.png" alt="Arrow-Left" />
-                  Shop now
-                </Link>
-              </button>
+
+              <Link to="/">
+                <img src="/images/arrow-left.png" alt="Arrow-Left" />
+                Shop now
+              </Link>
             </div>
             <div className="box2">
               <img src="/images/card item2.png" alt="Flower" />
             </div>
             <div className="box1">
               <h2>Aroma Candels</h2>
-              <button>
-                <Link to="/">
-                  <img src="/images/arrow-left.png" alt="Arrow-Left" />
-                  Shop now
-                </Link>
-              </button>
+
+              <Link to="/">
+                <img src="/images/arrow-left.png" alt="Arrow-Left" />
+                Shop now
+              </Link>
             </div>
             <div className="box2">
               <img src="/images/card item4.png" alt="Flower" />
@@ -91,7 +81,9 @@ const Home = () => {
         </div>
       </div>
       <div className="about">
-        <h1>About us</h1>
+        <div className="left">
+          <h1>About us</h1>
+        </div>
         <div className="right">
           <p>OUR STORY</p>
           <h2>Kyiv LuxeBouquets</h2>
@@ -113,7 +105,9 @@ const Home = () => {
         </div>
       </div>
       <div className="why-us">
-        <h1>Why choose us ?</h1>
+        <div className="left">
+          <h1>Why choose us ?</h1>
+        </div>
         <div className="right">
           <div className="block">
             <h2>Stylish bouquets by florists</h2>
@@ -126,6 +120,7 @@ const Home = () => {
               and same-day delivery service.
             </p>
           </div>
+          <div className="line"></div>
           <div className="block">
             <h2>On-time delivery</h2>
             <p>
@@ -135,6 +130,7 @@ const Home = () => {
               thoughtful gift reliably.
             </p>
           </div>
+          <div className="line"></div>
           <div className="block">
             <h2>Safe payment</h2>
             <p>
@@ -144,6 +140,7 @@ const Home = () => {
               can shop with confidence.
             </p>
           </div>
+          <div className="line"></div>
           <div className="block">
             <h2>Subscription by your needs</h2>
             <p>
@@ -164,33 +161,37 @@ const Home = () => {
             <p>We will call you back</p>
             <div className="buttons">
               <button className="textarea">+380 XX XXX XX XX</button>
-              <button>BOOK A CALL</button>
+              <button className="call">BOOK A CALL</button>
             </div>
           </div>
           <div className="bottom">
             <div className="bt1">
               <h3>Phone</h3>
-              <p>
-                <img src="/images/phone.png" alt="Phone" />
-                +380980099777
-              </p>
-              <p>
-                <img src="/images/phone.png" alt="Phone" />
-                +380980099777
-              </p>
+              <div className="align">
+                <p>
+                  <img src="/images/phone.png" alt="Phone" />
+                  +380980099777
+                </p>
+                <p>
+                  <img src="/images/phone.png" alt="Phone" />
+                  +380980099777
+                </p>
+              </div>
             </div>
             <div className="bt1">
-              <h3>Address</h3>
-              <p>opening hours: 8 to 11 p.m.</p>
-              <p>
-                <img src="/images/location.png" alt="Location" />
-                15/4 Khreshchatyk Street, Kyiv{" "}
-              </p>
+              <div className="RM">Address</div>
+              <div className="alig">
+                <div className="diff">opening hours: 8 to 11 p.m.</div>
+                <p>
+                  <img src="/images/location.png" alt="Location" />
+                  15/4 Khreshchatyk Street, Kyiv{" "}
+                </p>
+              </div>
             </div>
           </div>
         </div>
         <div className="right">
-          <img src="/images/Right colum.png" alt="Bouquet" />
+          <img className="kyiv" src="/images/Right colum.png" alt="Bouquet" />
           <div className="social">
             <h2>Follow us</h2>
             <div className="socials">
@@ -218,16 +219,18 @@ const Home = () => {
             <button>SUBSCRIBE NOW</button>
           </div>
         </div>
-        <div className="background">
-          <img src="/images/bg.png" alt="Background" />
-          <p>SERVICE</p>
-          <h3>Wedding & Event Decor</h3>
-          <p>
-            Let our team of expert florists and designers create stunning,
-            on-trend floral décor for your special day. Trust us to bring your
-            vision to life.
-          </p>
-          <button>INQUIRE NOW</button>
+        <div className="image-section">
+          <img src="/images/bg.png" alt="Background" className="bg-image" />
+          <div className="overlay-content">
+            <p className="label">SERVICE</p>
+            <h3>Wedding & Event Decor</h3>
+            <p className="description">
+              Let our team of expert florists and designers create stunning,
+              on-trend floral décor for your special day. Trust us to bring your
+              vision to life.
+            </p>
+            <button>INQUIRE NOW</button>
+          </div>
         </div>
       </div>
       <div className="reviews">
