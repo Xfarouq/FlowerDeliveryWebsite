@@ -1,53 +1,87 @@
+import React, { useState } from "react";
+
 const Product = () => {
+  const [quantity, setQuantity] = useState(1);
+
+  const handleAddToCart = async () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("Please sign in to add items to your cart.");
+      return;
+    }
+
+    const product = {
+      productId: "rosy-delight",
+      name: "Rosy Delight",
+      price: 100,
+      quantity: quantity,
+    };
+
+    try {
+      const res = await fetch(
+        "http://localhost:4000/api/cart/add", // ✅ or your Render backend URL
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(product),
+        }
+      );
+
+      const data = await res.json();
+      console.log("Cart Add Response:", data);
+
+      if (!res.ok) {
+        alert(data.message || "Failed to add to cart.");
+        return;
+      }
+
+      alert("Item added to cart!");
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      alert("Something went wrong. Please try again.");
+    }
+  };
+
+  const increaseQty = () => setQuantity((prev) => prev + 1);
+  const decreaseQty = () =>
+    setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+
   return (
     <section className="product">
       <div className="top">
-        <img src="/images/pro.jpg" alt="Flower" />
+        <div className="top-bg">
+          <img src="/images/pro.jpg" alt="Flower" />
+        </div>
         <div className="right">
-          <p>Fresh Flowers / Rosy Delight</p>
+          <p>
+            Fresh Flowers <span>/ Rosy Delight</span>
+          </p>
           <h2>Rosy Delight - $100</h2>
           <p>
             Large exceptional bouquet composed of a selection of David Austin
-            roses, known for their beauty and subtle fragrance. The bouquet is
-            accompanied by seasonal foliage which will enhance these sublime
-            flowers even
+            roses, known for their beauty and subtle fragrance.
           </p>
           <div className="quantity">
             <p>Quantity</p>
             <div className="add">
-                <img src="/images/minus.svg" alt="Minus Sign" />
-                <p>1</p>
-                <img src="/images/plus.svg" alt="Plus Sign" />
+              <img src="/images/minus.svg" alt="-" onClick={decreaseQty} />
+              <p>{quantity}</p>
+              <img src="/images/plus.svg" alt="+" onClick={increaseQty} />
             </div>
           </div>
-          <button>ADD TO BASKET</button>
+          <button onClick={handleAddToCart}>ADD TO BASKET</button>
         </div>
       </div>
+
       <div className="like">
         <h1>You may also like…</h1>
       </div>
-      <div className="perf">
-        <div className="card">
-            <img src="/images/prod1.png" alt="Perfume" />
-            <h4>Rattan Grapefruit</h4>
-            <p>price $48</p>
-        </div>
-        <div className="card">
-            <img src="/images/prod2.png" alt="Perfume" />
-            <h4>Lime & Matcha</h4>
-            <p>price $48</p>
-        </div>
-        <div className="card">
-            <img src="/images/prod3.png" alt="Perfume" />
-            <h4>Cedar & Lavender</h4>
-            <p>price $48</p>
-        </div>
-        <div className="card">
-            <img src="/images/prod4.png" alt="Perfume" />
-            <h4>Ocean Mist</h4>
-            <p>price $48</p>
-        </div>
-      </div>
+
+      <div className="perf">{/* Product cards */}</div>
     </section>
   );
 };

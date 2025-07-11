@@ -12,7 +12,7 @@ const Footer = () => {
           <button>REMIND</button>
         </div>
       </div>
-
+      <div className="line"></div>
       <div className="foot contact">
         <h3>Contact Us</h3>
         <p>Address</p>
@@ -30,7 +30,7 @@ const Footer = () => {
           <img src="/images/Telegram.svg" alt="Telegram" />
         </div>
       </div>
-
+      <div className="line"></div>
       <div className="foot shop">
         <h3>Shop</h3>
         <p>All Products</p>
@@ -44,7 +44,7 @@ const Footer = () => {
         <p>Flower Subscription</p>
         <p>Wedding & Event Decor</p>
       </div>
-
+      <div className="line"></div>
       <div className="foot about">
         <h3>About Us</h3>
         <p>Our Story</p>

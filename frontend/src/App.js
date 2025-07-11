@@ -8,6 +8,9 @@ import Category from './pages/Category';
 import Product from './pages/Product';
 import About from './pages/AboutUs';
 import Checkout from './pages/Checkout';
+import Menu from './pages/Menu';
+import Cart from './pages/Cart';
+import Success from './pages/Success';
 
 export default function App() {
   return (
@@ -19,6 +22,9 @@ export default function App() {
         <Route path='/product' element={<Product />} />
         <Route path="/about" element={<About />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/menu" element={<Menu />} />
+        <Route path='/cart' element={<Cart />} />
+        <Route path='/success' element={<Success />} />
       </Routes>
       <Footer />
     </Router>

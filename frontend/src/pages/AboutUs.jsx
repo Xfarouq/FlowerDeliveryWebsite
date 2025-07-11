@@ -14,9 +14,7 @@ const AboutUs = () => {
             <img src="/images/aboutsocial.svg" alt="Socials" />
           </div>
         </div>
-        <div className="right">
-          <img src="/images/about.png" alt="Pic of Woman" />
-        </div>
+        <img className="Woman" src="/images/about.png" alt="Pic of Woman" />
       </div>
       <div className="story">
         <p>OUR STORY</p>
@@ -58,7 +56,6 @@ const AboutUs = () => {
         <img src="/images/about2.png" alt="Flower" />
       </div>
       <div className="box">
-        <img src="/images/about3.png" alt="Flower" />
         <div className="text">
           <h3>Making Every Day Special</h3>
           <p>
@@ -71,6 +68,7 @@ const AboutUs = () => {
             bouquets and gifts.
           </p>
         </div>
+        <img src="/images/about3.png" alt="Flower" />
       </div>
       <div className="discover">
         <h2>Discover Our Beautiful Bouquets</h2>
