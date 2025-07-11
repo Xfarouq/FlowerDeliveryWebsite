@@ -1,3 +1,4 @@
+// server.js
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -7,25 +8,32 @@ const path = require('path');
 const flowerRoutes = require('./routes/flowerRoutes');
 const userRoutes = require('./routes/userRoutes');
 const cartRoutes = require('./routes/cartRoutes');
+const stripeRoutes = require('./routes/stripeRoutes');
 
 const app = express();
 
-app.use(cors());  // ✅ Use CORS before routes
-app.use(express.json());
+// ✅ Allow requests from your frontend origin
+app.use(cors({
+  origin: 'http://localhost:3000',  // or your frontend domain when deployed
+  credentials: true,
+}));
+
+app.use(express.json()); // ✅ Must come before route handling
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Log requests
+// ✅ Log all incoming requests
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.path}`);
   next();
 });
 
-// Routes
+// ✅ All routes
 app.use('/api/flowers', flowerRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/cart', cartRoutes);
+app.use('/api/stripe', stripeRoutes);
 
-// Connect to MongoDB and start server
+// ✅ Connect to MongoDB and start server
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     app.listen(process.env.PORT, () => {

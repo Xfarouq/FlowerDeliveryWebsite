@@ -1,21 +1,20 @@
-const jwt = require('jsonwebtoken');
-const User = require('../models/userModel');
+// middleware/requireAuth.js
+const jwt = require("jsonwebtoken");
+const User = require("../models/userModel");
 
 const requireAuth = async (req, res, next) => {
   const { authorization } = req.headers;
 
-  if (!authorization || !authorization.startsWith('Bearer ')) {
-    return res.status(401).json({ message: 'Authorization token required' });
-  }
+  if (!authorization) return res.status(401).json({ error: "Authorization required" });
 
-  const token = authorization.split(' ')[1];
+  const token = authorization.split(" ")[1];
 
   try {
-    const { _id } = jwt.verify(token, process.env.SECRET);
-    req.user = await User.findById(_id).select('_id');
+    const { _id } = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = await User.findById(_id).select("_id");
     next();
-  } catch (error) {
-    res.status(401).json({ message: 'Request is not authorized' });
+  } catch (err) {
+    res.status(401).json({ error: "Request not authorized" });
   }
 };
 

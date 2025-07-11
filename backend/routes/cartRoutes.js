@@ -1,12 +1,14 @@
-const express = require('express');
-const { addToCart, getCart } = require('../controllers/cartController');
-const requireAuth = require('../middleware/requireAuth');
-
+const express = require("express");
 const router = express.Router();
+const {
+  addToCart,
+  getCartItems,
+} = require("../controllers/cartController");
+const requireAuth = require("../middleware/requireAuth");
 
-router.use(requireAuth); // protect all cart routes
+router.use(requireAuth);
 
-router.post('/add', addToCart);
-router.get('/', getCart);
+router.post("/add", addToCart); // ✅ must be a function, not a call
+router.get("/", getCartItems);  // ✅
 
 module.exports = router;

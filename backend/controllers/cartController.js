@@ -1,37 +1,70 @@
-const User = require('../models/userModel');
+const User = require("../models/userModel");
 
-// Add to cart
+// === Add to Cart ===
 const addToCart = async (req, res) => {
-  const userId = req.user._id; // assuming auth middleware adds `user` to `req`
-  const { productId, name, price, image, quantity } = req.body;
+  const userId = req.user._id;
+  const { productId, name, price, quantity } = req.body;
+
+  if (!productId || !name || !price || !quantity) {
+    return res.status(400).json({ message: "Missing cart item details" });
+  }
 
   try {
     const user = await User.findById(userId);
-    const existingItem = user.cartData[productId];
 
-    user.cartData[productId] = {
+    // Ensure cartData is always treated as an object here
+    const cart = user.cartData instanceof Map
+      ? Object.fromEntries(user.cartData)
+      : user.cartData || {};
+
+    // Add or update the product in cart
+    cart[productId] = {
       name,
-      price,
-      image,
-      quantity: existingItem ? existingItem.quantity + quantity : quantity,
+      price: Number(price),
+      quantity: Number(quantity),
     };
 
+    // ✅ Store as Map to match schema
+    user.cartData = new Map(Object.entries(cart));
+
     await user.save();
-    res.status(200).json({ message: 'Item added to cart', cart: user.cartData });
+
+    res.status(200).json({
+      message: "Item added to cart",
+      cart: Object.fromEntries(user.cartData), // send as plain object in response
+    });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    console.error("❌ Cart Add Error:", error.message);
+    res.status(500).json({ message: "Server error" });
   }
 };
 
-// Get cart
-const getCart = async (req, res) => {
+// === Get Cart Items ===
+const getCartItems = async (req, res) => {
   const userId = req.user._id;
+
   try {
     const user = await User.findById(userId);
-    res.status(200).json(user.cartData || {});
+
+    if (!user || !user.cartData) {
+      return res.status(200).json({ items: [] });
+    }
+
+    const plainCart = Object.fromEntries(user.cartData); // Convert Map to plain object
+    const cartItems = Object.entries(plainCart).map(([productId, item]) => ({
+      productId,
+      ...item,
+    }));
+
+    res.status(200).json({ items: cartItems });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    console.error("❌ Get Cart Error:", error.message);
+    res.status(500).json({ message: "Failed to load cart" });
   }
 };
 
-module.exports = { addToCart, getCart };
+
+module.exports = {
+  addToCart,
+  getCartItems,
+};
