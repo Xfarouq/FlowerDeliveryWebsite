@@ -11,7 +11,7 @@ const Checkout = () => {
     const fetchCart = async () => {
       const token = localStorage.getItem("token");
       try {
-        const res = await fetch("http://localhost:4000/api/cart", {
+        const res = await fetch("https://flowerdeliverywebsitee-backend.onrender.com/api/cart", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -41,7 +41,7 @@ const Checkout = () => {
     console.log("📦 Sending cartItems to backend:", cartItems);
 
     try {
-      const res = await fetch("http://localhost:4000/api/stripe/create-checkout-session", {
+      const res = await fetch("https://flowerdeliverywebsitee-backend.onrender.com/api/stripe/create-checkout-session", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

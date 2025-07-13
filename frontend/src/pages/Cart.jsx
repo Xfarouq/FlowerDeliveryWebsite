@@ -9,7 +9,7 @@ const Cart = () => {
       if (!token) return;
 
       try {
-        const res = await fetch("http://localhost:4000/api/cart", {
+        const res = await fetch("https://flowerdeliverywebsitee-backend.onrender.com/api/cart", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -33,7 +33,7 @@ const Cart = () => {
       {cartItems.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
-        <ul>
+        <ul>  
           {cartItems.map((item, index) => (
           <li key={index} className="cart-item">
             <h4>{item.name}</h4>

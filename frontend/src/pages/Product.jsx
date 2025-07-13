@@ -19,7 +19,7 @@ const Product = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:4000/api/cart/add", {
+      const res = await fetch("https://flowerdeliverywebsitee-backend.onrender.com/api/cart/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
