@@ -1,63 +1,40 @@
-const User = require("../models/userModel");
-const jwt = require("jsonwebtoken");
+const User = require('../models/userModel');
+const jwt = require('jsonwebtoken');
 
+// Create JWT
 const createToken = (_id) => {
-  return jwt.sign({ _id }, process.env.JWT_SECRET, { expiresIn: "3d" });
+  return jwt.sign({ _id }, process.env.JWT_SECRET, { expiresIn: '3d' });
 };
 
+// @desc    Signup a new user
 const signupUser = async (req, res) => {
   const { name, email, password } = req.body;
+
   try {
-    const user = await User.signup(name, email, password);
+    const user = await User.signup(name, email, password); // uses static method
     const token = createToken(user._id);
-    res.status(200).json({ name, email, token });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
+
+    res.status(200).json({ name: user.name, email: user.email, token });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
   }
 };
 
+// @desc    Login user
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
+
   try {
-    const user = await User.login(email, password);
+    const user = await User.login(email, password); // uses static method
     const token = createToken(user._id);
-    res.status(200).json({ name: user.name, email, token });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
 
-const addToCart = async (req, res) => {
-  try {
-    const userId = req.user._id; // comes from middleware
-    const { productId, name, price, quantity } = req.body;
-
-    const user = await User.findById(userId);
-    if (!user) return res.status(404).json({ message: "User not found" });
-
-    // Initialize cartData if it's empty
-    if (!user.cartData) user.cartData = {};
-
-    // If product already in cart, update quantity
-    if (user.cartData[productId]) {
-      user.cartData[productId].quantity += quantity;
-    } else {
-      user.cartData[productId] = { productId, name, price, quantity };
-    }
-
-    await user.save();
-
-    res
-      .status(200)
-      .json({ message: "Item added to cart", cart: user.cartData });
+    res.status(200).json({ name: user.name, email: user.email, token });
   } catch (err) {
-    console.error("Add to cart error:", err);
-    res.status(500).json({ message: "Failed to add to cart" });
+    res.status(400).json({ error: err.message });
   }
 };
 
 module.exports = {
   signupUser,
   loginUser,
-  addToCart, // ✅ Added
 };

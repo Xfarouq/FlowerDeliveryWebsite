@@ -19,17 +19,14 @@ const Product = () => {
     };
 
     try {
-      const res = await fetch(
-        "http://localhost:4000/api/cart/add", // ✅ or your Render backend URL
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(product),
-        }
-      );
+      const res = await fetch("http://localhost:4000/api/cart/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(product),
+      });
 
       const data = await res.json();
       console.log("Cart Add Response:", data);
@@ -47,8 +44,7 @@ const Product = () => {
   };
 
   const increaseQty = () => setQuantity((prev) => prev + 1);
-  const decreaseQty = () =>
-    setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+  const decreaseQty = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
 
   return (
     <section className="product">

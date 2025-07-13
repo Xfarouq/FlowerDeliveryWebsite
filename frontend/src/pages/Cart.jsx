@@ -9,7 +9,7 @@ const Cart = () => {
       if (!token) return;
 
       try {
-        const res = await fetch("https://flowerdeliverywebsitee-backend.onrender.com/api/cart", {
+        const res = await fetch("http://localhost:4000/api/cart", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
