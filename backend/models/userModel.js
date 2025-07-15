@@ -2,35 +2,26 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
 
-const userSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      validate: validator.isEmail,
-    },
-    password: {
-      type: String,
-      required: function () {
-        return !this.googleId;
-      },
-    },
-    googleId: {
-      type: String,
-      default: null,
-    },
-    cartData: {
-      type: Object,
-      default: {},
-    },
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
   },
-  { minimize: false }
-);
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  googleId: {
+    type: String,
+    default: null,
+  },
+});
+
 
 // Static signup method
 userSchema.statics.signup = async function (name, email, password) {

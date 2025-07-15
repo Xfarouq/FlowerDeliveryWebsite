@@ -1,7 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom"; // ⬅️ to get flower ID from the URL
 
 const Product = () => {
+  const { id } = useParams(); // ⬅️ URL param: /product/:id
+  const [flower, setFlower] = useState(null);
   const [quantity, setQuantity] = useState(1);
+
+  // 🔁 Fetch flower details from DB
+  useEffect(() => {
+    const fetchFlower = async () => {
+      try {
+        const res = await fetch(`https://flowerdeliverywebsitee-backend.onrender.com/api/flowers/${id}`);
+        const data = await res.json();
+
+        if (!res.ok) throw new Error(data.error || "Failed to fetch flower");
+
+        setFlower(data);
+      } catch (err) {
+        console.error("Error fetching flower:", err);
+      }
+    };
+
+    fetchFlower();
+  }, [id]);
 
   const handleAddToCart = async () => {
     const token = localStorage.getItem("token");
@@ -12,9 +33,9 @@ const Product = () => {
     }
 
     const product = {
-      productId: "rosy-delight",
-      name: "Rosy Delight",
-      price: 100,
+      productId: flower._id,
+      name: flower.name,
+      price: flower.price,
       quantity: quantity,
     };
 
@@ -46,21 +67,23 @@ const Product = () => {
   const increaseQty = () => setQuantity((prev) => prev + 1);
   const decreaseQty = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
 
+  // ⏳ Loading state
+  if (!flower) {
+    return <p>Loading product...</p>;
+  }
+
   return (
     <section className="product">
       <div className="top">
         <div className="top-bg">
-          <img src="/images/pro.jpg" alt="Flower" />
+          <img src={`/uploads/${flower.image}`} alt={flower.name} />
         </div>
         <div className="right">
           <p>
-            Fresh Flowers <span>/ Rosy Delight</span>
+            Fresh Flowers <span>/ {flower.name}</span>
           </p>
-          <h2>Rosy Delight - $100</h2>
-          <p>
-            Large exceptional bouquet composed of a selection of David Austin
-            roses, known for their beauty and subtle fragrance.
-          </p>
+          <h2>{flower.name} - ${flower.price}</h2>
+          <p>{flower.description}</p>
           <div className="quantity">
             <p>Quantity</p>
             <div className="add">
@@ -77,7 +100,7 @@ const Product = () => {
         <h1>You may also like…</h1>
       </div>
 
-      <div className="perf">{/* Product cards */}</div>
+      <div className="perf">{/* Add recommendations here */}</div>
     </section>
   );
 };
