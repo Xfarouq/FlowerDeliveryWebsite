@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -10,12 +11,15 @@ const Cart = () => {
       if (!token) return;
 
       try {
-        const res = await fetch("https://flowerdeliveryweb-backend.onrender.com/api/cart", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const res = await fetch(
+          "https://flowerdeliveryweb-backend.onrender.com/api/cart",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         const data = await res.json();
         console.log("Fetched Cart Items:", data.items);
@@ -55,6 +59,9 @@ const Cart = () => {
           <h3>Total: ${getTotal()}</h3>
         </>
       )}
+      <Link to="/checkout">
+        <button>Checkout</button>
+      </Link>
     </div>
   );
 };

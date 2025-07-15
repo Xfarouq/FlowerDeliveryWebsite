@@ -30,7 +30,7 @@ router.post('/create-checkout-session', requireAuth, async (req, res) => {
     // Choose success/cancel URL based on request origin
     const origin = req.headers.origin || req.headers.referer;
     const baseUrl = origin && origin.includes('onrender.com')
-      ? 'https://flowerdeliverywebsite-frontend.onrender.com'
+      ? 'https://flowerdeliverywebsitee-frontend.onrender.com'
       : 'http://localhost:3000';
 
     const session = await stripe.checkout.sessions.create({

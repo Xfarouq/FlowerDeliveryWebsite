@@ -16,7 +16,7 @@ const app = express();
 const corsOptions = {
   origin: [
     'http://localhost:3000',
-    'https://flowerdeliverywebsite-frontend.onrender.com'
+    'https://flowerdeliverywebsitee-frontend.onrender.com'
   ],
   methods: ['GET', 'POST', 'DELETE'],
   credentials: true,
