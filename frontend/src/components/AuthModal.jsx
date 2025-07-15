@@ -21,8 +21,8 @@ const AuthModal = ({ onClose, onSuccess, initialMode = "signin" }) => {
     e.preventDefault();
 
     const endpoint = isSignUp
-      ? 'https://flowerdeliverywebsitee-backend.onrender.com/api/users/signup'
-      : 'https://flowerdeliverywebsitee-backend.onrender.com/api/users/login';
+      ? 'https://flowerdeliveryweb-backend.onrender.com/api/users/signup'
+      : 'https://flowerdeliveryweb-backend.onrender.com/api/users/login';
 
     const payload = isSignUp
       ? { name: formData.name, email: formData.email, password: formData.password }

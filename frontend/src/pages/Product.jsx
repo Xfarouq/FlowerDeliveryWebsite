@@ -10,7 +10,7 @@ const Product = () => {
   useEffect(() => {
     const fetchFlower = async () => {
       try {
-        const res = await fetch(`https://flowerdeliverywebsitee-backend.onrender.com/api/flowers/${id}`);
+        const res = await fetch(`https://flowerdeliveryweb-backend.onrender.com/api/flowers/${id}`);
         const data = await res.json();
 
         if (!res.ok) throw new Error(data.error || "Failed to fetch flower");
